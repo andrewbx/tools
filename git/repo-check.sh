@@ -1,13 +1,14 @@
 #!/bin/bash
 #--------------------------------------------------------------------------
 # Program     : repo-check
-# Version     : v1.0
+# Version     : v1.1
 # Description : Batch run git tasks.
 # Syntax      : repo-check.sh [-l|-p|-b|-s|-r|-d|-c|-h]
 # Author      : Andrew (andrew@devnull.uk)
 #--------------------------------------------------------------------------
 
 #set -x
+set -eu -o pipefail
 
 f_root=( github )
 workdir="${HOME}/Development"
