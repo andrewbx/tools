@@ -1,7 +1,7 @@
 #!/bin/bash
 #--------------------------------------------------------------------------
 # Program     : repo-check
-# Version     : v1.1
+# Version     : v1.2
 # Description : Batch run git tasks.
 # Syntax      : repo-check.sh [-l|-p|-b|-s|-r|-d|-c|-h]
 # Author      : Andrew (andrew@devnull.uk)
@@ -63,12 +63,30 @@ function git_b()
 function clean()
 {
     echo "Cleaning up leftovers..."
-    find . -type d -name ".mypy_cache" -prune -exec echo {} \; -exec rm -rf {} \;
-    find . -type d -name ".terragrunt-cache" -prune -exec echo {} \; -exec rm -rf {} \;
-    find . -type f -name ".terraform.lock.hcl" -prune -exec echo {} \; -exec rm -f {} \;
-    find . -type f -name ".DS_Store" -prune -exec echo {} \; -exec rm -f {} \;
-    find . -type f -name "Pipfile" -prune -exec echo {} \; -exec rm -f {} \;
-    find . -type f -name "Pipfile.lock" -prune -exec echo {} \; -exec rm -f {} \;
+
+    find . -type d -name "__pycache__" \
+        -prune -exec echo {} \; -exec rm -rf {} \;
+
+    find . -type d -name ".pytest_cache" \
+        -prune -exec echo {} \; -exec rm -rf {} \;
+
+    find . -type d -name ".mypy_cache" \
+        -prune -exec echo {} \; -exec rm -rf {} \;
+
+    find . -type d -name ".terragrunt-cache" \
+        -prune -exec echo {} \; -exec rm -rf {} \;
+
+    find . -type f -name ".terraform.lock.hcl" \
+        -prune -exec echo {} \; -exec rm -f {} \;
+
+    find . -type f -name ".DS_Store" \
+        -prune -exec echo {} \; -exec rm -f {} \;
+
+    find . -type f -name "Pipfile" \
+        -prune -exec echo {} \; -exec rm -f {} \;
+
+    find . -type f -name "Pipfile.lock" \
+        -prune -exec echo {} \; -exec rm -f {} \;
 }
 
 # main caller
