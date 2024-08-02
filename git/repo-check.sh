@@ -1,17 +1,21 @@
 #!/bin/bash
 #--------------------------------------------------------------------------
 # Program     : repo-check
-# Version     : v1.2
+# Version     : v1.3
 # Description : Batch run git tasks.
 # Syntax      : repo-check.sh [-l|-p|-b|-s|-r|-d|-c|-h]
 # Author      : Andrew (andrew@devnull.uk)
 #--------------------------------------------------------------------------
 
-#set -x
+# set -x
 set -eu -o pipefail
 
 f_root=( github )
 workdir="${HOME}/Development"
+e_path_list=(\
+    '*/opentofu/internal/*' \
+    '*/opentofu/testing/*' \
+)
 
 # helper
 function help()
@@ -64,28 +68,45 @@ function clean()
 {
     echo "Cleaning up leftovers..."
 
+    local e_path_args=()
+    for p in "${e_path_list[@]}"; do
+          e_path_args+=('!' '-path' "${p}")
+    done
+
     find . -type d -name "__pycache__" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -rf {} \;
 
     find . -type d -name ".pytest_cache" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -rf {} \;
 
     find . -type d -name ".mypy_cache" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -rf {} \;
 
     find . -type d -name ".terragrunt-cache" \
+        "${e_path_args[@]}" \
+        -prune -exec echo {} \; -exec rm -rf {} \;
+
+    find . -type d -name ".terraform" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -rf {} \;
 
     find . -type f -name ".terraform.lock.hcl" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -f {} \;
 
     find . -type f -name ".DS_Store" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -f {} \;
 
     find . -type f -name "Pipfile" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -f {} \;
 
     find . -type f -name "Pipfile.lock" \
+        "${e_path_args[@]}" \
         -prune -exec echo {} \; -exec rm -f {} \;
 }
 
