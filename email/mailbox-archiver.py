@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 --------------------------------------------------------------------------
-Program     : syn.archive-mailbox.py
+Program     : mailbox-archiver.py
 Version     : v1.0-STABLE-2026-01-30
 Description : IMAP Email Archiving and Old Folder Deletion Script
-Syntax      : python3 mailbox-archiver (--dry-run)
+Syntax      : python3 mailbox-archiver.py (--dry-run)
 Author      : Andrew (andrew@devnull.uk)
 --------------------------------------------------------------------------
 """
